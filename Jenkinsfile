@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         APP_PORT='9090'
-        APP_FOL=${env.JOB_NAME}
+        FOLDER=${env.JOB_NAME}
     }
     tools{    
         maven "maven3"
