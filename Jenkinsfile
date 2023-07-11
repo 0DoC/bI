@@ -26,15 +26,14 @@ pipeline {
                     steps {
                         script{
                             try{
-                                sh "pwd"
-                                sh "ls"
                                 dir("${env.WORKSPACE} /../$APP_FOL"){
                                     sh "pwd"
-                                    echo "$APP_FOL"
+                                    sh "java -jar target/contact.war"
                                 }
                             }
-                            catch(err){
-                                echo "FAILED: ${err}"
+                            catch (Throwable e) {
+                                echo "Caught ${e.toString()}"
+                                currentBuild.result = "SUCCESS" 
                             }
                             // Open the try block
                                 // Use the dir("TODO") { Commands } construct to return to the target folder
@@ -48,7 +47,10 @@ pipeline {
                 }
                 stage('Running Test') {
                     steps {
+                        sleep 30
                         echo "Test"
+                        sh 'mvn -Dtest=RestIT'
+                        echo 'Test done'
                         // Wait 30 seconds for "contact.war" application to run
                         // Run only the "RestIT" integration test in the "test" phase of maven
                     }
