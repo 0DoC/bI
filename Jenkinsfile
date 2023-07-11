@@ -14,12 +14,6 @@ pipeline {
             steps {
                 sh 'mvn -B package -DskipTests'
             }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
-            }
         }
         stage('Run App && Integration Test') {
             parallel{
@@ -33,6 +27,10 @@ pipeline {
                         script{
                             try{
                                 sh "pwd"
+                                sh "ls"
+                                dir("${env.WORKSPACE} "){
+                                    sh "pwd"
+                                }
                             }
                             catch(err){
                                 echo "FAILED: ${err}"
