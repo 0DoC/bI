@@ -49,7 +49,7 @@ pipeline {
                     steps {
                         sleep 30
                         echo "Test"
-                        sh 'mvn -Dtest=RestIT'
+                        sh 'mvn -Dtest=RestIT test'
                         echo 'Test done'
                         // Wait 30 seconds for "contact.war" application to run
                         // Run only the "RestIT" integration test in the "test" phase of maven
