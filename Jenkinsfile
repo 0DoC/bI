@@ -28,8 +28,9 @@ pipeline {
                             try{
                                 sh "pwd"
                                 sh "ls"
-                                dir("${env.WORKSPACE} "){
+                                dir("${env.WORKSPACE} /../$APP_FOL"){
                                     sh "pwd"
+                                    echo "$APP_FOL"
                                 }
                             }
                             catch(err){
