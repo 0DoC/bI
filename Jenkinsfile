@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         APP_PORT='9090'
-        FOLDER=${env.JOB_NAME}
+        APP_FOL=${env.JOB_NAME}
     }
     tools{    
         maven "maven3"
@@ -30,12 +30,13 @@ pipeline {
                         timeout(time: 60, unit: 'SECONDS')
                     }
                     steps {
-                        try{
-                            sh "pwd"
-                        }
-                        catch(err){
-                            echo "FAILED: ${err}"
-                        }
+                        script{
+                            try{
+                                sh "pwd"
+                            }
+                            catch(err){
+                                echo "FAILED: ${err}"
+                            }
                             // Open the try block
                                 // Use the dir("TODO") { Commands } construct to return to the target folder
                                 // Run the "contact.war" application from the "target" folder
@@ -43,10 +44,12 @@ pipeline {
                                 // Return "success" if the task is stopped after 60 seconds
                             // End of try-catch block
                         // End of the script block
+                        }
                     }
                 }
                 stage('Running Test') {
                     steps {
+                        echo "Test"
                         // Wait 30 seconds for "contact.war" application to run
                         // Run only the "RestIT" integration test in the "test" phase of maven
                     }
