@@ -32,7 +32,9 @@ pipeline {
                     steps {
                         try{
                             sh "pwd"
-                            dir(""){}
+                        }
+                        catch(err){
+                            echo "FAILED: ${err}"
                         }
                             // Open the try block
                                 // Use the dir("TODO") { Commands } construct to return to the target folder
